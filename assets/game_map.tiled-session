@@ -1,0 +1,72 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "D:/Users/Yura/VSC projects/Platformer/levels/level1.tmx",
+    "expandedProjectPaths": [
+        ".",
+        "images"
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "#grass1": {
+            "dynamicWrapping": false,
+            "scaleInEditor": 1
+        },
+        "D:/Users/Yura/VSC projects/Platformer/levels/level1.tmx": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 203,
+                "y": 114.66666666666669
+            }
+        },
+        "D:/Users/Yura/VSC projects/Platformer/levels/level1.tmx#grass1": {
+            "dynamicWrapping": false
+        },
+        "images/dirts.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 8
+        },
+        "images/grass1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "images/grass2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "images/grasses.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 8
+        }
+    },
+    "last.imagePath": "D:/Users/Yura/VSC projects/Platformer/assets/images",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "openFiles": [
+        "D:/Users/Yura/VSC projects/Platformer/levels/level1.tmx",
+        "images/dirts.tsx"
+    ],
+    "project": "game_map.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "images/dirts.tsx",
+        "D:/Users/Yura/VSC projects/Platformer/levels/level1.tmx",
+        "images/grasses.tsx",
+        "images/grass2.tsx",
+        "images/grass1.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    },
+    "tileset.type": 1
+}
