@@ -1,0 +1,26 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints
+.pytest_cache/
+
+# --- Virtual Environments ---
+.venv/
+venv/
+ENV/
+env/
+
+# --- IDEs ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+
+# --- My Project Specific ---
+build/
+.env
