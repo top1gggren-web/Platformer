@@ -1,10 +1,29 @@
 import pygame
+import os
+
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, scale_y, group):
         super().__init__(group)
-        self.image = pygame.image.load("assets/images/Player.png").convert_alpha()
+        
+        self.images = {}
+        for file_path in os.listdir("assets/images/"):
+            if file_path.startswith("Mushroom"):
+                image = pygame.image.load(f"assets/images/{file_path}")
+                scaled_image_width = (image.get_width() * scale_y)/2
+                scaled_image_height = (image.get_height() * scale_y)/2
+                image_name = os.path.splitext(file_path)[0]
+                self.images[image_name] = pygame.transform.scale(
+                    image,
+                    (int(scaled_image_width), int(scaled_image_height))
+                )
+                
+        self.image = self.images["Mushroom_stay"]
         self.rect = self.image.get_rect(topleft=(x, y))
+        self.curent_frame_i = 1
+        self.animation_speed = 250
+        self.animation_timer = 0
+        self.state = "stay"
 
         self.accel = 0.5
         self.max_speed = 4
@@ -12,7 +31,7 @@ class Player(pygame.sprite.Sprite):
         self.friction_ground = 0.5
         self.on_ground = False
         self.friction_air = 0.95
-        self.max_fall = 7
+        self.max_fall = 12
         self.coyote_time = 0.08
         self.coyote_timer = 0
         self.jump_buffer = 0.08
@@ -22,25 +41,10 @@ class Player(pygame.sprite.Sprite):
         self.speed = 1
         self.jump = -16
         self.gravity = 0.5
-        self.rect.height = 32 * scale_y
-        self.rect.width = 16 * scale_y
-
-        scaled_image_width = self.image.get_width() * scale_y
-        scaled_image_height = self.image.get_height() * scale_y
-        self.image = pygame.transform.scale(
-            self.image,
-            (int(scaled_image_width), int(scaled_image_height))
-        )
-
-    # def draw(self, surface):
-    #     surface.blit(
-    #         self.image,
-    #         (int(self.rect.x),
-    #         int(self.rect.y))
-    #     )
+        self.rect.height = self.rect.height * 0.82
 
     def draw_hitbox(self, surface):
-        pygame.draw.rect(surface, (255,0,0), self.rect, 2, 1)
+        pygame.draw.rect(surface, (0,50,255), self.rect, 2, 1)
 
     def update(self, keys, collision_rects, dt):
         move = self.handle_input(keys)
@@ -49,6 +53,36 @@ class Player(pygame.sprite.Sprite):
         self.apply_timers(dt, keys)
         self.handle_jump(keys)
         self.handle_collisions(collision_rects)
+        if self.animation_timer == self.animation_speed:
+            self.animation_timer = 0
+        self.handle_animation_states(dt)
+        # print(self.animation_timer)
+        print(self.vel_x)
+
+    def handle_animation_states(self, dt):
+        if self.state == "walking":
+            self.animation_timer = min(dt*1000 + self.animation_timer, self.animation_speed)
+            if self.vel_x > 0:
+                if self.animation_speed == self.animation_timer:
+                    self.curent_frame_i += 1
+                if self.curent_frame_i > 2:
+                    self.curent_frame_i = 1
+                self.image = self.images[f"Mushroom_right_walking_{self.curent_frame_i}"]
+            if self.vel_x < 0:
+                if self.animation_speed == self.animation_timer:
+                    self.curent_frame_i += 1
+                if self.curent_frame_i > 2:
+                    self.curent_frame_i = 1
+                self.image = self.images[f"Mushroom_left_walking_{self.curent_frame_i}"]
+        if self.state == "fall":
+            self.image = self.images["Mushroom_fall"]
+        if self.state == "fall_left":
+            self.image = self.images["Mushroom_left_fall"]
+        if self.state == "fall_right":
+            self.image = self.images["Mushroom_right_fall"]
+        if self.state == "stay":
+            self.image = self.images["Mushroom_stay"]
+
 
     def apply_gravity(self):
         self.vel_y += self.gravity
@@ -58,9 +92,22 @@ class Player(pygame.sprite.Sprite):
     def handle_input(self, keys):
         move = 0
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            self.state = "walking"
             move -= 1
         if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            self.state = "walking"
             move += 1
+        if keys[pygame.K_SPACE]:
+            self.state = "jump"
+            self.jump_buffer_timer = self.jump_buffer
+        if keys[pygame.K_LEFT] or keys[pygame.K_a] and self.on_ground == False:
+            self.state = "fall_left"
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d] and self.on_ground == False:
+            self.state = "fall_right"
+        if self.vel_x == 0 and self.on_ground == False:
+            self.state = "fall"
+        if not any(keys) and self.on_ground == True:
+            self.state = "stay"
 
         return move
 
@@ -90,6 +137,7 @@ class Player(pygame.sprite.Sprite):
                 elif self.vel_y < 0:
                     self.rect.top = r.bottom
                     self.vel_y = 0
+                    
 
     def handle_jump(self, keys):
         if self.jump_buffer_timer > 0 and self.coyote_timer > 0:
@@ -130,5 +178,4 @@ class Player(pygame.sprite.Sprite):
 
         self.jump_buffer_timer -= dt
 
-        if keys[pygame.K_SPACE]:
-            self.jump_buffer_timer = self.jump_buffer
+        

@@ -1,5 +1,6 @@
 import time
 import pygame
+from src.transformation_group import TransformationGroup
 from settings import get_screen_info, FPS, HITBOX_VISIBLE
 from src.menu import Menu
 from src.level import Level
@@ -11,7 +12,7 @@ def main():
     WIDTH = screen_info["WIDTH"]
     HEIGHT = screen_info["HEIGHT"]
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    sprites = pygame.sprite.Group()
+    sprites = TransformationGroup()
     pygame.display.set_caption("Platformer")
     clock = pygame.time.Clock()
     menu = Menu(WIDTH, HEIGHT)
@@ -51,7 +52,7 @@ def main():
                 level.draw_hitbox(screen)
 
             end_time = time.time()
-            print("Delay: ", round(end_time - start_time, 4))
+            # print("Delay: ", round(end_time - start_time, 4))
 
         pygame.display.flip()
     pygame.quit()
