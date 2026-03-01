@@ -5,7 +5,7 @@ from settings import get_screen_info
 
 class Level:
     TILE_SIDE = 16
-    
+
     def __init__(self, id):
         self.id = id
         self.blocks = []
@@ -20,6 +20,7 @@ class Level:
         self.new_x = int((WIDTH - self.scaled_tile_width * self.level.width)/2)
         print("new_x:", self.new_x)
         self.init_tiles()
+        self.init_hitboxes()
 
     def init_tiles(self):
         for layer in self.level.visible_layers:
@@ -33,14 +34,14 @@ class Level:
                     self.textures.append((x * self.scaled_tile_width + self.new_x, y * self.scaled_tile_height, tile))
 
     def draw(self, surface):
-        for x, y, tile in self.textures: 
+        for x, y, tile in self.textures:
             surface.blit(
                 tile,
                 (int(x),
                 int(y))
             )
 
-    def create_hitbox(self):
+    def init_hitboxes(self):
         for layer in self.level.visible_layers:
             if hasattr(layer, "data"):
                 for x, y, gid in layer:
@@ -53,4 +54,3 @@ class Level:
     def draw_hitbox(self, screen):
         for block in self.blocks:
             pygame.draw.rect(screen, (0,0,255), block, 2)
-            
