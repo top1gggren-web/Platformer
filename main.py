@@ -39,14 +39,15 @@ def main():
         
         elif state == "game":
             start_time = time.time()
-            player.update(keys, level.blocks)
+            dt = clock.tick(60) / 1000
+            player.update(keys, level.blocks, dt)
             screen.fill((30,30,40))
             level.draw(screen)
             player.draw(screen)
             player.create_hitbox(screen, level.scale_y)
             level.draw_hitbox(screen)
             end_time = time.time()
-            print("Delay: ", end_time - start_time)
+            print("Delay: ", round(end_time - start_time, 4))
             
         pygame.display.flip()
     pygame.quit()

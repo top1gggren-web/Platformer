@@ -9,18 +9,20 @@ class Player:
 
         self.accel = 0.5
         self.max_speed = 4
-        self.jump_force = -10
+        self.jump_force = -13
         self.friction_ground = 0.5
         self.on_ground = False
-        self.friction_air = 1
-        self.max_fall = 3.5
+        self.friction_air = 0.95
+        self.max_fall = 7
         self.coyote_time = 0.08
+        self.coyote_timer = 0
         self.jump_buffer = 0.08
+        self.jump_buffer_timer = 0
         self.vel_x = 0
         self.vel_y = 0
         self.speed = 1
         self.jump = -16
-        self.gravity = 0.4
+        self.gravity = 0.5
         self.rect.height = 20
         self.rect.width = 10
 
@@ -44,9 +46,7 @@ class Player:
         self.rect.width = 16 * scale_y
         pygame.draw.rect(surface, (255,0,0), self.rect, 2, 1)
         
-
-
-    def update(self, keys, collision_rects):
+    def update(self, keys, collision_rects, dt):
         # ===== INPUT =====
         move = 0
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
@@ -79,7 +79,6 @@ class Player:
             self.vel_y = self.max_fall
 
         # ===== TIMERS =====
-        dt = time.clock.tick(60) / 1000
         if self.on_ground:
             self.coyote_timer = self.coyote_time
         else:
@@ -125,12 +124,3 @@ class Player:
                 elif self.vel_y < 0:
                     self.rect.top = r.bottom
                     self.vel_y = 0
-
-        # перевірка зіткнення з землею
-        self.on_ground = False
-        for tile in collision_rects:
-            if self.rect.colliderect(tile):
-                if self.vel_y > 0:  # падаємо вниз
-                    self.rect.bottom = tile.top
-                    self.vel_y = 0
-                    self.on_ground = True
