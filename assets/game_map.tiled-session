@@ -3,10 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "D:/Users/Yura/VSC projects/Platformer/levels/level1.tmx",
+    "activeFile": "D:/Users/Yura/VSC projects/Platformer/levels/map1.tmx",
     "expandedProjectPaths": [
-        ".",
-        "images"
+        "images",
+        "."
     ],
     "fileStates": {
         "": {
@@ -20,12 +20,33 @@
             "scale": 1.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 203,
-                "y": 114.66666666666669
+                "x": 211.66666666666669,
+                "y": 118.66666666666666
             }
         },
         "D:/Users/Yura/VSC projects/Platformer/levels/level1.tmx#grass1": {
             "dynamicWrapping": false
+        },
+        "D:/Users/Yura/VSC projects/Platformer/levels/map1.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1678,
+                "y": 460
+            }
+        },
+        "images/Map1.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": -4.545454545454504,
+                "y": -306.060606060606
+            }
+        },
+        "images/Pack1.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "images/dirts.tsx": {
             "dynamicWrapping": true,
@@ -47,18 +68,22 @@
         }
     },
     "last.imagePath": "D:/Users/Yura/VSC projects/Platformer/assets/images",
+    "map.fixedSize": false,
     "map.lastUsedFormat": "tmx",
-    "map.tileHeight": 16,
-    "map.tileWidth": 16,
+    "map.tileHeight": 32,
+    "map.tileWidth": 32,
     "openFiles": [
-        "D:/Users/Yura/VSC projects/Platformer/levels/level1.tmx",
-        "images/dirts.tsx"
+        "images/Pack1.tsx",
+        "D:/Users/Yura/VSC projects/Platformer/levels/map1.tmx"
     ],
     "project": "game_map.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "images/dirts.tsx",
+        "images/Pack1.tsx",
+        "D:/Users/Yura/VSC projects/Platformer/levels/map1.tmx",
         "D:/Users/Yura/VSC projects/Platformer/levels/level1.tmx",
+        "images/Map1.tmx",
+        "images/dirts.tsx",
         "images/grasses.tsx",
         "images/grass2.tsx",
         "images/grass1.tsx"

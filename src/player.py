@@ -10,8 +10,8 @@ class Player(pygame.sprite.Sprite):
         for file_path in os.listdir("assets/images/"):
             if file_path.startswith("Mushroom"):
                 image = pygame.image.load(f"assets/images/{file_path}")
-                scaled_image_width = (image.get_width() * scale_y)/2
-                scaled_image_height = (image.get_height() * scale_y)/2
+                scaled_image_width = (image.get_width() * scale_y)
+                scaled_image_height = (image.get_height() * scale_y)
                 image_name = os.path.splitext(file_path)[0]
                 self.images[image_name] = pygame.transform.scale(
                     image,
@@ -43,8 +43,9 @@ class Player(pygame.sprite.Sprite):
         self.gravity = 0.5
         self.rect.height = self.rect.height * 0.82
 
-    def draw_hitbox(self, surface):
-        pygame.draw.rect(surface, (0,50,255), self.rect, 2, 1)
+    def draw_hitbox(self, surface, offset_x, offset_y):
+        moved_rect = pygame.Rect(self.rect.x - offset_x, self.rect.y - offset_y, self.rect.width, self.rect.height)
+        pygame.draw.rect(surface, (0,50,255), moved_rect, 2, 1)
 
     def update(self, keys, collision_rects, dt):
         move = self.handle_input(keys)
@@ -57,7 +58,6 @@ class Player(pygame.sprite.Sprite):
             self.animation_timer = 0
         self.handle_animation_states(dt)
         # print(self.animation_timer)
-        print(self.vel_x)
 
     def handle_animation_states(self, dt):
         if self.state == "walking":

@@ -1,5 +1,6 @@
 import time
 import pygame
+from src.camera import Camera
 from src.transformation_group import TransformationGroup
 from settings import get_screen_info, FPS, HITBOX_VISIBLE
 from src.menu import Menu
@@ -11,6 +12,7 @@ def main():
     screen_info = get_screen_info()
     WIDTH = screen_info["WIDTH"]
     HEIGHT = screen_info["HEIGHT"]
+    camera = Camera(WIDTH, HEIGHT)
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     sprites = TransformationGroup()
     pygame.display.set_caption("Platformer")
@@ -44,12 +46,13 @@ def main():
             dt = clock.tick(FPS) / 1000
 
             player.update(keys, level.blocks, dt)
-            level.draw(screen)
-            sprites.draw(screen)
+            camera.update(player)
+            level.draw(screen, camera.offset_x, camera.offset_y)
+            sprites.draw(screen, camera.offset_x, camera.offset_y)
 
             if HITBOX_VISIBLE:
-                player.draw_hitbox(screen)
-                level.draw_hitbox(screen)
+                player.draw_hitbox(screen, camera.offset_x, camera.offset_y)
+                level.draw_hitbox(screen, camera.offset_x, camera.offset_y)
 
             end_time = time.time()
             # print("Delay: ", round(end_time - start_time, 4))
