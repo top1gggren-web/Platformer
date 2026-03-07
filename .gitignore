@@ -23,4 +23,5 @@ Thumbs.db
 
 # --- My Project Specific ---
 build/
+dist/
 .env

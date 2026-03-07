@@ -51,7 +51,7 @@ class Player(pygame.sprite.Sprite):
         move = self.handle_input(keys)
         self.apply_horizontal_movement(move)
         self.apply_gravity()
-        self.apply_timers(dt, keys)
+        self.apply_timers(dt)
         self.handle_jump(keys)
         self.handle_collisions(collision_rects)
         if self.animation_timer == self.animation_speed:
@@ -82,7 +82,6 @@ class Player(pygame.sprite.Sprite):
             self.image = self.images["Mushroom_right_fall"]
         if self.state == "stay":
             self.image = self.images["Mushroom_stay"]
-
 
     def apply_gravity(self):
         self.vel_y += self.gravity
@@ -170,12 +169,10 @@ class Player(pygame.sprite.Sprite):
             if abs(self.vel_x) < 0.05:
                 self.vel_x = 0
 
-    def apply_timers(self, dt, keys):
+    def apply_timers(self, dt):
         if self.on_ground:
             self.coyote_timer = self.coyote_time
         else:
             self.coyote_timer -= dt
 
         self.jump_buffer_timer -= dt
-
-        

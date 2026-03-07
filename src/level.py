@@ -11,7 +11,7 @@ class Level:
         self.old_offset = {"x":None,"y":None}
         self.level = pytmx.load_pygame(f"levels/map{self.id}.tmx", pixelalpha = True)
         screen_info = get_screen_info()
-        WIDTH = screen_info["WIDTH"]
+        #WIDTH = screen_info["WIDTH"]
         HEIGHT = screen_info["HEIGHT"]
         rel_block_size = HEIGHT/20
         self.scale_y = rel_block_size/self.level.tileheight

@@ -1,5 +1,6 @@
 import time
 import pygame
+from src.debug_manager import DebugManager
 from src.camera import Camera
 from src.transformation_group import TransformationGroup
 from settings import get_screen_info, FPS, HITBOX_VISIBLE
@@ -20,6 +21,7 @@ def main():
     menu = Menu(WIDTH, HEIGHT)
     level = Level(id=1)
     player = Player(WIDTH//2,HEIGHT//2, level.scale_y, sprites)
+    debug_manager = DebugManager()
     state = "menu"
     running = True
 
@@ -54,6 +56,7 @@ def main():
                 player.draw_hitbox(screen, camera.offset_x, camera.offset_y)
                 level.draw_hitbox(screen, camera.offset_x, camera.offset_y)
 
+            debug_manager.draw_info(screen, camera, player)
             end_time = time.time()
             # print("Delay: ", round(end_time - start_time, 4))
 
